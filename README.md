@@ -43,4 +43,14 @@ It wrote the code, ran away, and now the game is unplayable.
 
 ## 🚀 Stretch Features
 
-- [ ] [If you choose to complete Challenge 4, insert a screenshot of your Enhanced Game UI here]
+- **Challenge 1: Advanced Edge-Case Testing**
+  - Added tests for decimals, extremely large numbers, and invalid strings.
+  - **Pytest Results**:
+    ```text
+    tests/test_game_logic.py ........ [100%]
+    8 passed in 0.01s
+    ```
+- **Challenge 4: Enhanced Game UI**
+  - Added color-coded hints and "Hot" logic.
+  - Added a session summary table.
+  - ![Enhanced UI](/Users/ray/.gemini/antigravity/brain/faa3094b-cde1-4ad9-abc1-c154d35393de/game_summary_ui_1773540091099.png)

@@ -19,13 +19,21 @@ def parse_guess(raw: str):
         return False, None, "Enter a guess."
 
     try:
+        # Handle decimals by converting to float first
         if "." in raw:
             value = int(float(raw))
         else:
             value = int(raw)
+
+        # Challenge 1: Avoid extremely large numbers that might cause issues
+        if value > 1_000_000:
+            return False, None, "That number is too large!"
+        if value < -1_000_000:
+            return False, None, "That number is too small!"
+
         return True, value, None
     except Exception:
-        return False, None, "That is not a number."
+        return False, None, "That is not a valid number."
 
 
 def check_guess(guess, secret):

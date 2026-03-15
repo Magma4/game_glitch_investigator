@@ -107,8 +107,18 @@ if submit:
 
         outcome, message = check_guess(guess_int, secret)
 
+        # Challenge 4: Professional UI Enhancements
+        diff = abs(guess_int - st.session_state.secret)
+        if outcome != "Win" and diff <= 5:
+            st.toast("🔥 You're getting HOT!", icon="🔥")
+
         if show_hint:
-            st.warning(message)
+            if outcome == "Too High":
+                st.error(f"**{message}**")
+            elif outcome == "Too Low":
+                st.info(f"**{message}**")
+            else:
+                st.success(f"**{message}**")
 
         st.session_state.score = update_score(
             current_score=st.session_state.score,
@@ -131,6 +141,18 @@ if submit:
                     f"The secret was {st.session_state.secret}. "
                     f"Score: {st.session_state.score}"
                 )
+
+        # Challenge 4: Show a summary table of the session
+        if st.session_state.status != "playing":
+            st.write("### Game Summary")
+            summary_data = []
+            for i, g in enumerate(st.session_state.history):
+                try:
+                    res_o, _ = check_guess(int(g), st.session_state.secret)
+                except:
+                    res_o = "Invalid"
+                summary_data.append({"Attempt": i+1, "Guess": g, "Outcome": res_o})
+            st.table(summary_data)
 
 st.divider()
 st.caption("Built by an AI that claims this code is production-ready.")

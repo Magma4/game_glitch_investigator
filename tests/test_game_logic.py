@@ -22,3 +22,31 @@ def test_score_decrease_on_miss():
     initial_score = 100
     new_score = update_score(initial_score, "Too High", 1)
     assert new_score == 95
+
+# --- Challenge 1: Edge Case Tests ---
+
+from logic_utils import parse_guess
+
+def test_parse_decimal():
+    # Decimals should be truncated to integers
+    ok, val, err = parse_guess("50.9")
+    assert ok is True
+    assert val == 50
+
+def test_parse_extremely_large():
+    # Extremely large numbers should be rejected
+    ok, val, err = parse_guess("9999999999")
+    assert ok is False
+    assert "too large" in err.lower()
+
+def test_parse_invalid_string():
+    # Non-numeric strings should be rejected
+    ok, val, err = parse_guess("abc")
+    assert ok is False
+    assert "not a valid number" in err.lower()
+
+def test_parse_empty():
+    # Empty strings should be rejected
+    ok, val, err = parse_guess("   ")
+    assert ok is False
+    assert "enter a guess" in err.lower()
